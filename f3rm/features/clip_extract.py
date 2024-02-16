@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 
 class CLIPArgs:
-    model_name: str = "ViT-L/14@336px"
+    model_name: str = "ViT-L/14"
     skip_center_crop: bool = True
     batch_size: int = 64
 
@@ -23,7 +23,7 @@ class CLIPArgs:
 
 
 @torch.no_grad()
-def extract_clip_features(image_paths: List[str], device: torch.device) -> torch.Tensor:
+def extract_clip_features(image: Image.Image, device: torch.device) -> torch.Tensor:
     """Extract dense patch-level CLIP features for given images"""
     from f3rm.features.clip import clip
 
@@ -44,10 +44,8 @@ def extract_clip_features(image_paths: List[str], device: torch.device) -> torch
         print("Skipping center crop")
 
     # Preprocess the images
-    images = [Image.open(path) for path in image_paths]
-    preprocessed_images = torch.stack([preprocess(image) for image in images])
+    preprocessed_images = torch.stack([preprocess(image)])
     preprocessed_images = preprocessed_images.to(device)  # (b, 3, h, w)
-    print(f"Preprocessed {len(images)} images into {preprocessed_images.shape}")
 
     # Get CLIP embeddings for the images
     embeddings = []

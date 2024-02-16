@@ -1,17 +1,23 @@
 import os
+import sys
 
 import matplotlib.pyplot as plt
 import torch
 from PIL import Image
 
+sys.path.insert(0, '/home/dominic/f3rm')
+
 from f3rm.features.clip_extract import extract_clip_features
 from f3rm.features.dino_extract import extract_dino_features
 from f3rm.pca_colormap import apply_pca_colormap
 
-_MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
-_IMAGE_DIR = os.path.join(_MODULE_DIR, "images")
 
-image_paths = [os.path.join(_IMAGE_DIR, name) for name in ["frame_1.png", "frame_2.png", "frame_3.png"]]
+#_MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+#_IMAGE_DIR = os.path.join(_MODULE_DIR, "images")
+
+image_paths = ['/home/dominic/concept-graphs/Datasets/office_0/Sequence_1/rgb/rgb_633.png', '/home/dominic/concept-graphs/Datasets/office_0/Sequence_1/rgb/rgb_634.png']
+
+#image_paths = [os.path.join(_IMAGE_DIR, name) for name in ["frame_1.png", "frame_2.png", "frame_3.png"]]
 
 
 @torch.no_grad()
